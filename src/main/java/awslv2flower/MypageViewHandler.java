@@ -19,6 +19,7 @@ public class MypageViewHandler {
 
     @StreamListener(KafkaProcessor.INPUT)
     public void whenOrdered_then_CREATE_1 (@Payload Ordered ordered) {
+        System.out.println("log=====================================whenOrdered_then_CREATE_1==========================");
         try {
             if (ordered.isMe()) {
                 // view 객체 생성
@@ -75,7 +76,7 @@ public class MypageViewHandler {
         try {
             if (shipped.isMe()) {
                 // view 객체 조회
-                Optional<Mypage> mypageOptional = mypageRepository.findById(shipped.getId());
+                Optional<Mypage> mypageOptional = mypageRepository.findById(shipped.getOrderId());
                 if( mypageOptional.isPresent()) {
                     Mypage mypage = mypageOptional.get();
                     // view 객체에 이벤트의 eventDirectValue 를 set 함
@@ -91,6 +92,9 @@ public class MypageViewHandler {
     @StreamListener(KafkaProcessor.INPUT)
     public void whenPaymentConfirmed_then_UPDATE_4(@Payload PaymentConfirmed paymentConfirmed) {
         try {
+
+            System.out.println("log=====================================whenPaymentConfirmed_then_UPDATE_4=========================="+paymentConfirmed.getStatus()+"====");
+            
             if (paymentConfirmed.isMe()) {
                 // view 객체 조회
                 List<Mypage> mypageList = mypageRepository.findByOrderId(paymentConfirmed.getOrderId());
