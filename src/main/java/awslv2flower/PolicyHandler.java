@@ -27,11 +27,14 @@ public class PolicyHandler {
         if (shipped.isMe()) {
             System.out.println("##### listener OrderStatus : " + shipped.toJson());
 
-            Order order = new Order();
-            order.setId(shipped.getOrderId());
-            order.setStatus("Shipped"+System.getenv("DeliveryStatus"));
+            Optional<Order> orderOptional = orderRepository.findById(shipped.getOrderId());
+            if( orderOptional.isPresent()) {
 
-            orderRepository.save(order);
+                Order order = orderOptional.get();
+                order.setStatus("Delivery"+System.getenv("DeliveryStatus"));
+
+                orderRepository.save(order);
+            }    
         }
 
     }
