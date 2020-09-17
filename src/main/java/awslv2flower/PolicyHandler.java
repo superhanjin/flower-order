@@ -24,6 +24,8 @@ public class PolicyHandler {
     @StreamListener(KafkaProcessor.INPUT)
     public void wheneverShipped_OrderStatus(@Payload Shipped shipped) {
 
+       /*
+
         if (shipped.isMe()) {
             System.out.println("##### listener OrderStatus : " + shipped.toJson());
 
@@ -36,6 +38,7 @@ public class PolicyHandler {
                 orderRepository.save(order);
             }    
         }
+        */
 
     }
 
