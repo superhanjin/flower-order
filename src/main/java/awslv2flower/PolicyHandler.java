@@ -29,7 +29,7 @@ public class PolicyHandler {
 
             Order order = new Order();
             order.setId(shipped.getOrderId());
-            order.setStatus("Shipped");
+            order.setStatus("Shipped"+System.getenv("DeliveryStatus"));
 
             orderRepository.save(order);
         }
