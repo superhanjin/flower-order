@@ -21,9 +21,11 @@ public class Order {
 
     @PostPersist
     public void onPostPersist(){
+        /*
         Ordered ordered = new Ordered();
         BeanUtils.copyProperties(this, ordered);
         ordered.publishAfterCommit();
+        */
 
         //Following code causes dependency to external APIs
         // it is NOT A GOOD PRACTICE. instead, Event-Policy mapping is recommended.
